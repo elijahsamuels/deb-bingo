@@ -1,0 +1,27 @@
+.bingo-card3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+}	
+.bingo-card5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 5px;
+}	
+.bingo-card7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 5px;
+}	
+.cell {
+  --dimensions: 100px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  min-height: var(--dimensions);
+  min-width: var(--dimensions);
+}
