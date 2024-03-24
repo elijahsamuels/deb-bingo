@@ -22,7 +22,7 @@ const BingoCard = ({ squareWidth }) => {
     } else {
 			console.log('else / false:', false);
 			// console.log("e:", e);
-			// setReshuffleCard(true); // if you want to turn it back on
+			setReshuffleCard(true); // if you want to turn it back on
 		}
   }, [reshuffleCard, squareSize]); // Re-create the function if count changes
 
