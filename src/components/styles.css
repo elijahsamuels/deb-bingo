@@ -30,5 +30,14 @@
 }
 
 .selected-cell {
-	background-color: rgb(140, 222, 140)
+	background-color: rgb(220, 220, 100);
+}
+
+.bingo-cell {
+	background-color: rgb(140, 220, 140);
+}
+
+.winner {
+	color: green;
+	font-size: 40px;
 }

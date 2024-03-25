@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { bingoPhrases } from "./bingoPhrases";
-import { removeDuplicates, maxArrayLength, shuffleArray } from "../utils/index";
+import { removeDuplicates, maxArrayLength, shuffleArray, winningCombinations } from "../utils/index";
 import "./styles.css";
 
 const FREE_SPACE = "FREE SPACE ⭐";
@@ -35,15 +35,36 @@ const initialState = [
 ];
 
 const BingoCard = ({ squareWidth = 5 }) => {
-
-	
-	
-	const [shuffledWords, setShuffledWords] = useState([]);
+  const [shuffledWords, setShuffledWords] = useState([]);
   const [reshuffleCard, setReshuffleCard] = useState(true);
+  const [isThereBingo, setIsThereBingo] = useState(false);
   const [cellState, setCellState] = useState(() => {
-		const storedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const storedState = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storedState ? JSON.parse(storedState) : initialState;
   });
+
+  // check if cellState contains a winning combination
+  //
+
+  function isWinningCombination(combination, cellState) {
+    for (let index of combination) {
+      if (!cellState[index].isSelected) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Check if any winning combination exists in the cellState
+  function hasWinningCombination(cellState, winningCombinations) {
+    for (let combination of winningCombinations) {
+      if (isWinningCombination(combination, cellState)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   const squaredSize = Math.pow(squareWidth, 2);
 
@@ -70,6 +91,16 @@ const BingoCard = ({ squareWidth = 5 }) => {
     handleClick();
   }, [squaredSize, handleClick]);
 
+	useEffect(() => {
+		if (hasWinningCombination(cellState, winningCombinations)) {
+			console.log("There is a winning combination!");
+			setIsThereBingo(true)
+		} else {
+			console.log("No winning combination found.");
+			setIsThereBingo(false)
+		}
+		}, [cellState]);
+
   useEffect(() => {
     saveStateToLocalStorage(cellState);
   }, [cellState, saveStateToLocalStorage]);
@@ -85,10 +116,12 @@ const BingoCard = ({ squareWidth = 5 }) => {
     );
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cellState));
   };
-	// localStorage.getItem(LOCAL_STORAGE_KEY, JSON.stringify(cellState));
-
+  // localStorage.getItem(LOCAL_STORAGE_KEY, JSON.stringify(cellState));
+  // console.log("cellState:", cellState);
   return (
     <>
+		{isThereBingo && <div className='winner'>BINGO!</div>}
+		
       <div className={`bingo-card${squareWidth}`}>
         {shuffledWords.map((phrase, index) => (
           <div
@@ -96,8 +129,7 @@ const BingoCard = ({ squareWidth = 5 }) => {
             className={`cell ${
               cellState[index]?.isSelected ? "selected-cell" : ""
             }`}
-            onClick={() => handleCellClick(index)}
-          >
+            onClick={() => handleCellClick(index)}>
             {phrase}
           </div>
         ))}
