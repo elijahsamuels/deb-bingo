@@ -1,0 +1,1 @@
+https://bandbingo.netlify.app/

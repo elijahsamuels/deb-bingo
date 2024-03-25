@@ -117,7 +117,6 @@ const BingoCard = ({ squareWidth = 5 }) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cellState));
   };
   // localStorage.getItem(LOCAL_STORAGE_KEY, JSON.stringify(cellState));
-  // console.log("cellState:", cellState);
   return (
     <>
 		{isThereBingo && <div className='winner'>BINGO!</div>}
