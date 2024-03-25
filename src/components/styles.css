@@ -20,8 +20,15 @@
   --dimensions: 100px;
   border: 1px solid #000;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
+	overflow: hidden;
+
+	text-overflow: clip;
   min-height: var(--dimensions);
   min-width: var(--dimensions);
+}
+
+.selected-cell {
+	background-color: rgb(140, 222, 140)
 }

@@ -9,9 +9,9 @@ const App = () => {
   return (
     <div className="App">
       <div className="bingo-card-container">
-        <h1>Bingo</h1>
-        {bingoRules}
+        <h1>Wedding Band Bingo</h1>
         <BingoCard squareWidth={squareWidth} />
+        {bingoRules}
       </div>
     </div>
   );
